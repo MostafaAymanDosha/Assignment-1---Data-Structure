@@ -1,0 +1,142 @@
+#include <iostream>
+
+using namespace std;
+
+class myArray 
+{
+    int index = 0;
+    int *myOperationsArray;
+    int sizeOfArray;
+
+    public: myArray(int size)
+    {
+        myOperationsArray = new int[size];
+        sizeOfArray = size;
+    }
+
+    public: void add(int item)
+    {
+        if (index == sizeOfArray - 1)
+        {
+            cout << "Size Of Array Filled!\n";
+            return;
+        }
+
+        myOperationsArray[index] = item;
+        index++;
+    }
+
+
+
+    public: string search(int number)
+    {
+        for (int i = 0; i <= index; i++)
+        {
+            if (number == myOperationsArray[i])
+                return "Found";
+        }
+
+        return "Not Found !";
+    }
+
+    public: void removeAt(int indexOfNumber)
+    {
+        if (indexOfNumber > index)
+        {
+            cout << "Invalid index";
+            return;
+        }
+        else if (index == 0)
+        {
+            cout << "Array is Empty";
+            return;
+        }
+
+        else if (indexOfNumber == index - 1)
+            index--;
+
+        else
+        {
+            for (int i = indexOfNumber; i < index; i++)
+            {
+                myOperationsArray[i] = myOperationsArray[i + 1];
+            }
+
+            index--;
+        }
+
+    }
+
+    public: void insertAt(int number, int indexOfNumber)
+    {
+        if (index == sizeOfArray - 1)
+        {
+            cout << "Size Of Array Filled!\n";
+            return;
+        }
+            
+
+        else if (indexOfNumber > index)
+        {
+            cout << "Invalid index";
+            return;
+        }
+
+        else if (index == 0)
+            myOperationsArray[0] = number;
+
+        else
+        {
+            for (int i = index; i > indexOfNumber; i--)
+            {
+                myOperationsArray[i] = myOperationsArray[i - 1];
+            }
+
+            myOperationsArray[indexOfNumber] = number;
+        }
+
+        index++;
+    }
+
+    public: void print()
+    {
+        for (int i = 0; i < index; i++)
+            cout << myOperationsArray[i] << "\n";
+    }
+};
+
+int main()
+{
+    myArray array(5);
+
+    cout << "Add()\n\n";
+    array.add(10);
+    array.add(30);
+    array.add(40);
+    array.print();
+
+    cout << "________\n";
+    cout << "InsertAt()\n\n";
+    array.insertAt(20, 1);
+    array.print();
+
+    cout << "________\n";
+    cout << "Add more than size number\n\n";
+    array.add(50);
+    array.add(60);
+
+    cout << "________\n";
+    cout << "Remove()\n\n";
+    array.removeAt(2);
+    array.print();
+
+
+    cout << "________\n";
+    cout << "Search()\n\n";
+    cout << array.search(10) << "\n";
+    cout << array.search(100) << "\n";
+    
+    cout << "________________________________________________________\n\n";
+    cout << "\t\tCoded By : Mostafa Ayman Farouk Abdrahem\n\n";
+    return 0;
+}
